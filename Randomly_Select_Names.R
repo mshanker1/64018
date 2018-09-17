@@ -1,7 +1,7 @@
 
-a <- read.csv("~/Git/64018/names.csv", sep="", stringsAsFactors=FALSE)
+a <- read.csv("./names.csv", sep="", stringsAsFactors=FALSE)
 names <- as.matrix(a) # so dealing with a character array
-gs = 2 # group size
+gs = 3 # group size
 
 
 myfun <- function(ln, ss) {

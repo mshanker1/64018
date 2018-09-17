@@ -1,0 +1,31 @@
+---
+title: "Me, me, me"
+output: html_notebook
+---
+
+This program runs the problem from class.
+
+```{r}
+library("lpSolveAPI")
+x <- read.lp("P3_1.lp")
+x
+```
+```{r}
+solve(x)
+get.objective(x)
+```
+```{r}
+get.variables(x)
+```
+
+Get constraints
+```{r}
+get.constraints(x)
+```
+
+Get dual solution
+```{r}
+get.dual.solution(x)
+get.sensitivity.rhs(x)
+```
+
