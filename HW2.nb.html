@@ -178,18 +178,56 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShcImxwU29sdmVBUElcIilcbnggPC0gcmVhZC5scChcIlAzXzQubHBcIilcbmBgYCJ9 -->
-<pre class="r"><code>library(&quot;lpSolveAPI&quot;)
-x &lt;- read.lp(&quot;P3_4.lp&quot;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueFxuXG5gYGAifQ== -->
+<pre class="r"><code>x
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiTW9kZWwgbmFtZTogXG4gIGEgbGluZWFyIHByb2dyYW0gd2l0aCAxMiBkZWNpc2lvbiB2YXJpYWJsZXMgYW5kIDggY29uc3RyYWludHNcbiJ9 -->
+<pre><code>Model name: 
+  a linear program with 12 decision variables and 8 constraints</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
+<p>Now, solve for the problem</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0Lm9iamVjdGl2ZSh4KVxuXG5gYGAifQ== -->
+<pre class="r"><code>get.objective(x)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDE2NjAwXG4ifQ== -->
+<pre><code>[1] 16600</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Get variables and constraints</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0LmNvbnN0cmFpbnRzKHgpXG5cbmBgYCJ9 -->
+<pre class="r"><code>get.constraints(x)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdICAxMDAgIDIwMCAgMTUwICA0MDAgLTI1MCAgICAwICAgIDAgICAgMFxuIn0= -->
+<pre><code>[1]  100  200  150  400 -250    0    0    0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>get variables</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0LnZhcmlhYmxlcyh4KVxuXG5gYGAifQ== -->
+<pre class="r"><code>get.variables(x)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSAxNTAgNDAwIDMwMCAgIDAgIDUwIDI1MCA0MDAgICAwICAgMSAgIDEgICAxXG5bMTJdICAgMFxuIn0= -->
+<pre><code> [1] 150 400 300   0  50 250 400   0   1   1   1
+[12]   0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkhXIDIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCmBgYHtyfQ0KbGlicmFyeSgibHBTb2x2ZUFQSSIpDQp4IDwtIHJlYWQubHAoIlAzXzQubHAiKQ0KYGBgDQoNCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDdHJsK0FsdCtJKi4NCg0KV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQoNClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4NCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkhXIDIiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCmBgYHtyfQ0KbGlicmFyeSgibHBTb2x2ZUFQSSIpDQp4IDwtIHJlYWQubHAoIlAzXzQubHAiKQ0KeA0KYGBgDQoNCk5vdywgc29sdmUgZm9yIHRoZSBwcm9ibGVtDQpgYGB7cn0NCnNvbHZlKHgpDQpnZXQub2JqZWN0aXZlKHgpDQpgYGANCkdldCB2YXJpYWJsZXMgYW5kIGNvbnN0cmFpbnRzDQpgYGB7cn0NCmdldC5jb25zdHJhaW50cyh4KQ0KYGBgDQpnZXQgdmFyaWFibGVzDQpgYGB7cn0NCmdldC52YXJpYWJsZXMoeCkNCmBgYA0KDQo=</div>
 
 
 
