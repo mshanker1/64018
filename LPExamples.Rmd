@@ -1,4 +1,5 @@
 ---
+<<<<<<< HEAD
 title: "R Notebook"
 output: html_notebook
 ---
@@ -43,4 +44,35 @@ Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by press
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
 
 The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+=======
+title: "Me, me, me"
+output: html_notebook
+---
+
+This program runs the problem from class.
+
+```{r}
+library("lpSolveAPI")
+x <- read.lp("P3_1.lp")
+x
+```
+```{r}
+solve(x)
+get.objective(x)
+```
+```{r}
+get.variables(x)
+```
+
+Get constraints
+```{r}
+get.constraints(x)
+```
+
+Get dual solution
+```{r}
+get.dual.solution(x)
+get.sensitivity.rhs(x)
+```
+>>>>>>> 1d3a6c2ab3ac4a82d6db82251b72bad6f5b45c2b
 

@@ -1,0 +1,26 @@
+---
+title: "HW 2"
+output: html_notebook
+---
+
+
+```{r}
+library("lpSolveAPI")
+x <- read.lp("P3_4.lp")
+x
+```
+
+Now, solve for the problem
+```{r}
+solve(x)
+get.objective(x)
+```
+Get variables and constraints
+```{r}
+get.constraints(x)
+```
+get variables
+```{r}
+get.variables(x)
+```
+
