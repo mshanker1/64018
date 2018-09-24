@@ -1,0 +1,17 @@
+---
+title: "Transportation - Dummy Sources"
+output: html_notebook
+---
+
+```{r}
+library(lpSolveAPI)
+x <- read.lp("PT_DS.lp")
+x
+```
+```{r}
+solve(x)
+get.objective(x)
+get.variables(x)
+
+```
+

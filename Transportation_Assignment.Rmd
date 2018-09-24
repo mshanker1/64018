@@ -1,0 +1,24 @@
+---
+title: "Transportation and Assignment"
+output: html_notebook
+---
+
+The first problem is the P&T Transportation problem
+
+```{r}
+library(lpSolveAPI)
+x <- read.lp("PT_Transportation.lp")
+x
+solve(x)
+```
+
+Now solve the problem. 
+```{r}
+get.objective(x)
+get.variables(x)
+get.constraints(x)
+get.sensitivity.objex(x)
+get.sensitivity.rhs(x)
+```
+
+
