@@ -1,6 +1,8 @@
 ---
 title: "Production Plan with Fixed Costs - Homework Solution"
-output: html_notebook
+output:
+  html_document:
+    df_print: paged
 ---
 
 A manufacturing manager is in charge of minimizing the total costs (raw materials, labor and storage costs) of the following four months. In the following table can be found the cost of raw materials of one unit of final product, the demand of final product and the working hours available for each month. Labor costs are of $12 per hour, and only worked hours are payed. Each unit of final product needs 30 minutes of labor. Storage costs are equal to $2 for each unit stored at the end of the month. Any unit produced at a given month can be used to cover the demand of the same month, or be stored to cover the demand of months to come. At the beginning of month 1 there is no stock, and there are no minimum stock requirements for any month.
@@ -21,12 +23,19 @@ solve(x)
 get.objective(x)
 ```
 ```{r}
-get.variables(x)
+sol3_4 <- get.variables(x)
+sol3_4
+sol3_4m <- matrix(sol3_4,nrow=4,ncol=3)
+colnames(sol3_4m) <- c("Produce","Surplus","Any production?")
+rownames(sol3_4m) <- c("month 1","month 2","month 3","month 4")
+h <- c("objective values = 16600")
+knitr::kable(sol3_4m,caption = h)
 ```
 
 Get constraints
 ```{r}
 get.constraints(x)
+
 ```
 
 For the next four months, the supplier of raw materials has made an special offer: all units purchased above 150 in any given month will have a discounts of $2. For instance, if a purchase of 350 units is ordered in month 1, the first 150 units will be sold for $12 each, and the following 200 will be sold for $10 each. Modify the original formulation and solve.
@@ -39,8 +48,13 @@ solve(y)
 get.objective(y)
 ```
 ```{r}
-get.variables(y)
+sol3_5 <- get.variables(y)
+sol3_5m <- matrix(sol3_5,nrow = 4,ncol = 4)
+colnames(sol3_5m) <- c("Production","Discounted Production","Surplus","Discounted?")
+rownames(sol3_5m) <- c("Month 1","Month 2","Month 3","Month 4")
+knitr::kable(sol3_5m,Caption = "Part 5: Objective values is 12300")
 ```
+
 ```{r}
 get.constraints(y)
 ```
