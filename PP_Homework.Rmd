@@ -52,7 +52,7 @@ sol3_5 <- get.variables(y)
 sol3_5m <- matrix(sol3_5,nrow = 4,ncol = 4)
 colnames(sol3_5m) <- c("Production","Discounted Production","Surplus","Discounted?")
 rownames(sol3_5m) <- c("Month 1","Month 2","Month 3","Month 4")
-knitr::kable(sol3_5m,Caption = "Part 5: Objective values is 12300")
+knitr::kable(sol3_5m,Caption = "Part 5: Objective values is 12200")
 ```
 
 ```{r}

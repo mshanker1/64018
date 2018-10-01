@@ -1,0 +1,156 @@
+---
+title: "Additional LP Problems"
+author: "ms"
+date: "9/30/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Transportation by Trucks
+
+### Problem formulation
+
+Variable Definition
+
+* qi continuous: tonnes of raw material to purchase in quarter i
+* si continuous: tonnes in stock at the end of quarter i, and s0 as the initial stock
+* ti integer: small trucks to contract in quarter i
+* ui integer: large trucks to contract in quarter i
+
+Objective Function
+
+Min: 20q1 + 25q2 + 30q3 + 40q4 + 8s1 + 8s2 + 8s3 + 8s4 + 700t1 + 700t2 + 700t3 + 700t4 + 1400u1 + 1400u2 + 1400u3 + 1400 u4;
+
+Demand constraints
+
+```
+sini: s0 = 100;
+dem1: s0 + q1 - s1 = 1000;
+dem2: s1 + q2 - s2 = 1200;
+dem3: s2 + q3 - s3 = 1500;
+dem4: s3 + q4 - s4 = 1800;
+sfin: s4 = 100;
+
+Truck capacity constraints
+
+cap1: q1 - 500t1 - 1200u1 <= 0;
+cap2: q2 - 500t2 - 1200u2 <= 0;
+cap3: q3 - 500t3 - 1200u3 <= 0;
+cap4: q4 - 500t4 - 1200u4 <= 0;
+
+Declaration
+
+int t1, t2, t3, t4, u1, u2, u3, u4;
+```
+
+#### Read file
+
+```{r}
+library(lpSolveAPI)
+y <- read.lp("TransportationbyTrucks.lp")
+y
+```
+
+### Solve the problem
+```{r}
+solve(y)
+get.objective(y)
+```
+
+### Print the solution
+```{r}
+t1 <- get.variables(y)
+s0t1 <- t1[17]
+t1 <- t1[-17]
+t1m <- matrix(t1,ncol = 4,nrow = 4)
+t1mt <- t(t1m)
+t1mt <- cbind(c(NA,s0t1,NA,NA),t1mt)
+rownames(t1mt) <- c("Purchased","Stock","Small Trucks","Large Trucks")
+colnames(t1mt) <- c("0","1","2","3","4")
+knitr::kable(t1mt,caption="Transportation by Trucks")
+```
+
+******************
+
+## Hiring and Firing Example
+
+### Problem Formulation
+
+```
+// Objective function
+min: 5h1 + 5h2 + 5h3 + 5h4 + 5h5 + 5h6 + 10f1 + 10f2 + 10f3 + 10f4 + 10f5 + 10f6 + 8s1 + 8s2 + 8s3 + 8s4 + 8s5 + 8s6;
+
+// Constraints
+
+sini: s0 = 20;
+sm1: s0 + h1 - f1 - s1 = 0; 
+sm2: s1 + h2 - f2 - s2 = 0;
+sm3: s2 + h3 - f3 - s3 = 0; 
+sm4: s3 + h4 - f4 - s4 = 0;
+sm5: s4 + h5 - f5 - s5 = 0;
+sm6: s5 + h6 - f6 - s6 = 0;
+
+// Now, bi = 1 if we hire somebody
+h1 - 1000 b1 <= 0;
+h2 - 1000 b2 <= 0;
+h3 - 1000 b3 <= 0;
+h4 - 1000 b4 <= 0;
+h5 - 1000 b5 <= 0;
+h6 - 1000 b6 <= 0;
+
+// We cannot fire anybody in a month when we hired in the previous month
+// f(i+1) <= M (1-bi)
+// f(i+1) + M b1 <= M
+
+f2 + 1000 b1 <= 1000;
+f3 + 1000 b2 <= 1000;
+f4 + 1000 b3 <= 1000;
+f5 + 1000 b4 <= 1000;
+f6 + 1000 b5 <= 1000;
+
+// Minimum staff required
+
+s1 >= 30;
+s2 >= 60;
+s3 >= 55;
+s4 >= 40;
+s5 >= 45;
+s6 >= 50;
+
+// Declare binary variables
+
+bin b1, b2, b3, b4,  b5, b6;
+
+```
+
+### Read File
+
+```{r}
+library(lpSolveAPI)
+x <- read.lp("HiringFiring.lp")
+x
+```
+
+### Now, solve the problem
+```{r}
+solve(x)
+get.objective(x)
+```
+
+### Now, print the solution
+
+```{r}
+v1 <- get.variables(x)
+s0 <- v1[19]
+v1 <- v1[-19]
+tt <- c(NA,NA,s0,NA)
+v <- matrix(v1,ncol=4,nrow=6)
+v <- t(v)
+v <- cbind(tt,v)
+rownames(v) <- c("Hired","Fired","Staff","Hired")
+colnames(v) <- c("Period 0","Period 1","Period 2","Period 3","Period 4","Period 5","Period 6")
+knitr::kable(v,caption = "Optimal Model for Staff Planning")
+```
