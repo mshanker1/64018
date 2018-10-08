@@ -1,0 +1,66 @@
+---
+title: "Goal Programming"
+author: "MS"
+date: "October 7, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal Programming
+This file contains solutions to the problems discussed in class
+```{r}
+library(lpSolveAPI)
+gp1 <- read.lp("gp1.lp")
+gp1
+write.lp(gp1,"test.lp")
+```
+### Solve
+```{r}
+solve
+(gp1)
+get.objective(gp1)
+```
+### Solution
+```{r}
+get.variables(gp1)
+get.constraints(gp1)
+```
+
+#### Remarks
+Note that Y2+ is 8.333, so this solution adds nearly 20% more to the workforce. Consequently, management has concluded that a very high priority should be placed on avoiding an increase in the workforce. Furthermore, management has learned that raising more than $55 million for capital investment for the new products would be extremely difficult, so a very high priority also should be placed on avoiding capital investment above this level.
+
+## Sequential Approache - Preemptive Programming
+In our first goals, we minimize the hiring and capital expenses, with only those constraints.
+```{r}
+gp2 <- read.lp("gp2.lp")
+gp2
+```
+### Solve
+```{r}
+solve(gp2)
+get.objective(gp2)
+```
+#### Remarks
+Note that the solution is zero. So, these goals have now been met, and we can incorporate them as part of the constraints, where y2+ and y3+ are zero.
+
+### Revised GP Model
+
+Here is the revised model
+
+```{r}
+gp3 <- read.lp("gp3.lp")
+gp3
+```
+#### Solve
+```{r}
+solve(gp3)
+get.objective(gp3)
+```
+#### Solution
+```{r}
+get.variables(gp3)
+```
+

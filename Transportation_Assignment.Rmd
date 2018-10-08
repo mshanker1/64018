@@ -7,7 +7,7 @@ The first problem is the P&T Transportation problem
 
 ```{r}
 library(lpSolveAPI)
-x <- read.lp("PT_Transportation.lp")
+x <- read.lp("PT_DS1.lp")
 x
 solve(x)
 ```

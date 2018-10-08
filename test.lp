@@ -1,12 +1,7 @@
-Maximize
- obj: x1 + 2 x2 + 3 x3 + x4
-Subject To
- c1: - x1 + x2 + x3 + 10 x4 <= 20
- c2: x1 - 3 x2 + x3 <= 30
- c3: x2 - 3.5 x4 = 0
-Bounds
- 0 <= x1 <= 40
- 2 <= x4 <= 3
-General
- x4
-End
+/* Objective function */
+min: +5 y1m +2 y2p +4 y2m +3 y3p;
+
+/* Constraints */
++y1m +12 x1 +9 x2 +15 x3 -y1p = 125;
+-y2p +y2m +5 x1 +3 x2 +4 x3 = 40;
+-y3p +5 x1 +7 x2 +8 x3 +y3m = 55;

@@ -69,7 +69,16 @@ We now join the two columns
 ```{r}
 if (length(Assignment) == length(snames)) {
   Solution <- cbind(Assignment,snames)
-  Solution <- subset(Solution, student == "1") 
-  View(Solution)
+  Solution <- subset(Solution, Assignment == "1") 
+  group = 1
+  repeat {
+    ul <- group * 3
+    ll <- ul -2
+    print(c("Group",group,Solution[c(ll:ul),2]))
+    group <- group + 1
+    if (group > 7) {
+      break
+    }
+  }
 }
 ```

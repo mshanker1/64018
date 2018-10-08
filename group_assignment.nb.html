@@ -97,6 +97,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -211,10 +214,13 @@ x</code></pre>
 <p>Now, to solve it. As this is a pure Integer programming problem, the solution can take time</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3lzdGVtLnRpbWUoc29sdmUoeCkpXG5nZXQub2JqZWN0aXZlKHgpXG5gYGAifQ== -->
-<pre class="r"><code>system.time(solve(x))
-get.objective(x)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0Lm9iamVjdGl2ZSh4KVxuXG5gYGAifQ== -->
+<pre class="r"><code>get.objective(x)
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDM5XG4ifQ== -->
+<pre><code>[1] 39</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Remember that the solution is presented in the order in which variables appear in the formulation</p>
@@ -224,6 +230,14 @@ get.objective(x)</code></pre>
 <pre class="r"><code>Assignment &lt;- get.variables(x)
 Assignment</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICBbMV0gMCAwIDAgMSAwIDEgMCAwIDEgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMFxuIFsyOV0gMSAwIDAgMSAwIDAgMSAwIDAgMCAwIDAgMCAwIDEgMSAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMFxuIFs1N10gMCAxIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxIDAgMSAwIDAgMSAwIDAgMCAwIDAgMFxuIFs4NV0gMCAwIDAgMCAxIDAgMSAwIDAgMCAwIDAgMSAwIDAgMCAwIDAgMCAwIDAgMCAwIDEgMCAwIDAgMFxuWzExM10gMCAwIDAgMCAwIDAgMCAwIDAgMCAxIDAgMCAxIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMFxuWzE0MV0gMCAwIDEgMCAxIDEgMFxuIn0= -->
+<pre><code>  [1] 0 0 0 1 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ [29] 1 0 0 1 0 0 1 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0
+ [57] 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 0 1 0 0 0 0 0 0
+ [85] 0 0 0 0 1 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0
+[113] 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[141] 0 0 1 0 1 1 0</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>How good is the solution</p>
@@ -232,6 +246,13 @@ Assignment</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2V0LmNvbnN0cmFpbnRzKHgpXG5gYGAifQ== -->
 <pre class="r"><code>get.constraints(x)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIFsxXSAgMS4wICAxLjAgIDEuMCAgMS4wICAxLjAgIDEuMCAgMS4wICAxLjAgIDEuMCAgMS4wICAxLjBcblsxMl0gIDEuMCAgMS4wICAxLjAgIDEuMCAgMS4wICAxLjAgIDEuMCAgMS4wICAxLjAgIDEuMCAgMy4wXG5bMjNdICAzLjAgIDMuMCAgMy4wICAzLjAgIDMuMCAgMy4wICA1LjAgIDcuMCAgNS4wICA1LjAgIDUuMFxuWzM0XSAgNS4wICA3LjAgMTIuMCAxMi4wIDEyLjAgMTIuMCAxMi4wIDEyLjAgMTIuMCAgOS4wICA5LjBcbls0NV0gIDcuMCAgNy4wICA4LjUgIDguNSAgOC41XG4ifQ== -->
+<pre><code> [1]  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0
+[12]  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  1.0  3.0
+[23]  3.0  3.0  3.0  3.0  3.0  3.0  5.0  7.0  5.0  5.0  5.0
+[34]  5.0  7.0 12.0 12.0 12.0 12.0 12.0 12.0 12.0  9.0  9.0
+[45]  7.0  7.0  8.5  8.5  8.5</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Let us now map the student names to the solution First read the names</p>
@@ -255,16 +276,36 @@ snames &lt;- rep(snames,length(Assignment)/length(snames))</code></pre>
 <p>We now join the two columns</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKGxlbmd0aChBc3NpZ25tZW50KSA9PSBsZW5ndGgoc25hbWVzKSkge1xuICBTb2x1dGlvbiA8LSBjYmluZChBc3NpZ25tZW50LHNuYW1lcylcbiAgU29sdXRpb24gPC0gc3Vic2V0KFNvbHV0aW9uLCBzdHVkZW50ID09IFwiMVwiKSBcbiAgVmlldyhTb2x1dGlvbilcbn1cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaWYgKGxlbmd0aChBc3NpZ25tZW50KSA9PSBsZW5ndGgoc25hbWVzKSkge1xuICBTb2x1dGlvbiA8LSBjYmluZChBc3NpZ25tZW50LHNuYW1lcylcbiAgU29sdXRpb24gPC0gc3Vic2V0KFNvbHV0aW9uLCBBc3NpZ25tZW50ID09IFwiMVwiKSBcbiAgZ3JvdXAgPSAxXG4gIHJlcGVhdCB7XG4gICAgdWwgPC0gZ3JvdXAgKiAzXG4gICAgbGwgPC0gdWwgLTJcbiAgICBwcmludChjKFwiR3JvdXBcIixncm91cCxTb2x1dGlvbltjKGxsOnVsKSwyXSkpXG4gICAgZ3JvdXAgPC0gZ3JvdXAgKyAxXG4gICAgaWYgKGdyb3VwID4gNykge1xuICAgICAgYnJlYWtcbiAgICB9XG4gIH1cbiAgXG59XG5cbmBgYCJ9 -->
 <pre class="r"><code>if (length(Assignment) == length(snames)) {
   Solution &lt;- cbind(Assignment,snames)
-  Solution &lt;- subset(Solution, student == &quot;1&quot;) 
-  View(Solution)
-}</code></pre>
+  Solution &lt;- subset(Solution, Assignment == &quot;1&quot;) 
+  group = 1
+  repeat {
+    ul &lt;- group * 3
+    ll &lt;- ul -2
+    print(c(&quot;Group&quot;,group,Solution[c(ll:ul),2]))
+    group &lt;- group + 1
+    if (group &gt; 7) {
+      break
+    }
+  }
+  
+}
+</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIFwiR3JvdXBcIiBcIjFcIiAgICAgXCJNYW5hclwiIFwiTmFuY3lcIiBcIkNob2VcIiBcblsxXSBcIkdyb3VwXCIgICAgXCIyXCIgICAgICAgIFwiVGluYVwiICAgICBcIk5pY2tcIiAgICAgXCJTcGFuZGFuYVwiXG5bMV0gXCJHcm91cFwiICBcIjNcIiAgICAgIFwiQW5kcmV3XCIgXCJZdWhhblwiICBcIlNha2FuYVwiXG5bMV0gXCJHcm91cFwiICBcIjRcIiAgICAgIFwiTGluXCIgICAgXCJLYXJlZW1cIiBcIk1hbmFsaVwiXG5bMV0gXCJHcm91cFwiICAgIFwiNVwiICAgICAgICBcIlZpcGluXCIgICAgXCJNYXJpYW5uZVwiIFwiU29uYWxcIiAgIFxuWzFdIFwiR3JvdXBcIiAgIFwiNlwiICAgICAgIFwiSmFzb25cIiAgIFwiTmFuZGFuXCIgIFwiU3JpaGFyaVwiXG5bMV0gXCJHcm91cFwiICAgXCI3XCIgICAgICAgXCJNZWV0YWxpXCIgXCJBa2hpbFwiICAgXCJTdGFubGV5XCJcbiJ9 -->
+<pre><code>[1] &quot;Group&quot; &quot;1&quot;     &quot;Manar&quot; &quot;Nancy&quot; &quot;Choe&quot; 
+[1] &quot;Group&quot;    &quot;2&quot;        &quot;Tina&quot;     &quot;Nick&quot;     &quot;Spandana&quot;
+[1] &quot;Group&quot;  &quot;3&quot;      &quot;Andrew&quot; &quot;Yuhan&quot;  &quot;Sakana&quot;
+[1] &quot;Group&quot;  &quot;4&quot;      &quot;Lin&quot;    &quot;Kareem&quot; &quot;Manali&quot;
+[1] &quot;Group&quot;    &quot;5&quot;        &quot;Vipin&quot;    &quot;Marianne&quot; &quot;Sonal&quot;   
+[1] &quot;Group&quot;   &quot;6&quot;       &quot;Jason&quot;   &quot;Nandan&quot;  &quot;Srihari&quot;
+[1] &quot;Group&quot;   &quot;7&quot;       &quot;Meetali&quot; &quot;Akhil&quot;   &quot;Stanley&quot;</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiR3JvdXAgQXNzaWdubWVudCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyB0aGUgbG9naWMgSSBmb2xsb3dlZDoKCjEuIFdlIGhhdmUgMjEgc3R1ZGVudHMgd2hvIG5lZWQgdG8gYmUgYXNzaWduZWQgaW50byA3IGdyb3VwcyBvZiAzCjIuIFdlIGhhdmUgZGF0YSBvbiB0aGUgZm9sbG93aW5nIGNoYXJhY3RlcmlzdGljcyBvZiB0aGUgc3R1ZGVudHM6CiAgYSkgUHJvZ3JhbW1pbmcgc2tpbGxzCiAgYikgQ29tZm9ydCB3aXRoIHB1YmxpYyBzcGVha2luZwogIGMpIFllYXJzIG9mIGV4cGVyaWVuY2UKICBkKSBCYWNrZ3JvdW5kIChJIGhhdmUgaWdub3JlZCB0aGlzIGluIHRoZSBmb3JtdWxhdGlvbiBiZWxvdykKClZhcmlhYmxlcwoKWGlqID0gMSwgaWYgcGVyc29uIGkgYmVsb25ncyB0byBncm91cCBqOyAwIG90aGVyd2lzZQoKQ29uc3RyYWludHMKCjEuIEEgcGVyc29uIGNhbiBiZWxvbmcgdG8gbm8gbW9yZSB0aGFuIG9uZSBncm91cAoyLiBBIGdyb3VwIHJlcXVpcmVzIHRocmVlIHBlb3BsZQozLiBGb3IgZWFjaCBvZiB0aGUgY2hhcmFjdGVyaXN0aWNzLCBlYWNoIGdyb3VwIG11c3QgbWVldCBhIG1pbmltdW0gdmFsdWUuIEkgaW5pdGlhbGx5IGRldGVybWluZWQgdGhlIG1pbmltdW0gdmFsdWUgYnkgbG9va2luZyBhdCB0aGUgZGF0YSwgYW5kIEkgdGhlbiBrZXB0IGFkanVzdGluZyBpdCB1bnRpbCBJIHNhdyBwYXJpdHkuCgpPYmplY3RpdmUKClRoaXMgaXMgbWF4aW1pemF0aW9uIHByb2JsZW0gd2hlcmUgSSB0cnkgdG8gbWF4aW1pemUgdGhlIHByb2dyYW1taW5nIHNraWxscyBmb3IgZWFjaCBncm91cC4gV2UgY2FuIGFsc28gdXNlIHRoZSBvdGhlciBjaGFyYWN0ZXJpc3RpY3MsIG9yIGFsbCBvZiB0aGVtLgoKSGVyZSBpcyB0aGUgcHJvZ3JhbQoKYGBge3J9CmxpYnJhcnkobHBTb2x2ZUFQSSkKeCA8LXJlYWQubHAoImdhLmxwIikKeApgYGAKCk5vdywgdG8gc29sdmUgaXQuIEFzIHRoaXMgaXMgYSBwdXJlIEludGVnZXIgcHJvZ3JhbW1pbmcgcHJvYmxlbSwgdGhlIHNvbHV0aW9uIGNhbiB0YWtlIHRpbWUKYGBge3J9CnN5c3RlbS50aW1lKHNvbHZlKHgpKQpnZXQub2JqZWN0aXZlKHgpCmBgYAoKUmVtZW1iZXIgdGhhdCB0aGUgc29sdXRpb24gaXMgcHJlc2VudGVkIGluIHRoZSBvcmRlciBpbiB3aGljaCB2YXJpYWJsZXMgYXBwZWFyIGluIHRoZSBmb3JtdWxhdGlvbgpgYGB7cn0KQXNzaWdubWVudCA8LSBnZXQudmFyaWFibGVzKHgpCkFzc2lnbm1lbnQKYGBgCgpIb3cgZ29vZCBpcyB0aGUgc29sdXRpb24KYGBge3J9CmdldC5jb25zdHJhaW50cyh4KQpgYGAKCkxldCB1cyBub3cgbWFwIHRoZSBzdHVkZW50IG5hbWVzIHRvIHRoZSBzb2x1dGlvbgpGaXJzdCByZWFkIHRoZSBuYW1lcwpgYGB7cn0Kc25hbWVzIDwtIGFzLm1hdHJpeChyZWFkLmNzdigiLi9zbmFtZXMudHh0IikpCmBgYAoKTm93LCB3ZSBhcmUgZ29pbmcgdG8gam9pbiB0aGUgc3R1ZGVudCBuYW1lcyB0byB0aGUgQXNzaWdubWVudCBzb2x1dGlvbi4gQnV0LCB0aGVzZSB0d28gY29sdW1ucyBhcmUgb2YgZGlmZmVyZW50IGxlbmd0aCwgc28gd2Ugd2lsbCByZXBlYXQgdGhlIHNuYW1lcyB0byBnZXQgYXQgdGhlIHJpZ2h0IG51bWJlciBvZiByb3dzIGFzIEFzc2lnbm1lbnQuIFdlIHVzZSBhIG5ldyBwYWNrYWdlIGNhbGxlZCBtZWZhLgoKV2Ugc2hvdWxkIHByb2JhYmx5IHB1dCBzb21lIGNoZWNrIHRvIGVuc3VyZSB0aGF0IHRoZSByb3cgbGVuZ3RocyBhcmUgY29ycmVjdC4KYGBge3J9CmxpYnJhcnkobWVmYSkKc25hbWVzIDwtIHJlcChzbmFtZXMsbGVuZ3RoKEFzc2lnbm1lbnQpL2xlbmd0aChzbmFtZXMpKQpgYGAKCldlIG5vdyBqb2luIHRoZSB0d28gY29sdW1ucwpgYGB7cn0KaWYgKGxlbmd0aChBc3NpZ25tZW50KSA9PSBsZW5ndGgoc25hbWVzKSkgewogIFNvbHV0aW9uIDwtIGNiaW5kKEFzc2lnbm1lbnQsc25hbWVzKQogIFNvbHV0aW9uIDwtIHN1YnNldChTb2x1dGlvbiwgc3R1ZGVudCA9PSAiMSIpIAogIFZpZXcoU29sdXRpb24pCn0KYGBgCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkdyb3VwIEFzc2lnbm1lbnQiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIHRoZSBsb2dpYyBJIGZvbGxvd2VkOg0KDQoxLiBXZSBoYXZlIDIxIHN0dWRlbnRzIHdobyBuZWVkIHRvIGJlIGFzc2lnbmVkIGludG8gNyBncm91cHMgb2YgMw0KMi4gV2UgaGF2ZSBkYXRhIG9uIHRoZSBmb2xsb3dpbmcgY2hhcmFjdGVyaXN0aWNzIG9mIHRoZSBzdHVkZW50czoNCiAgYSkgUHJvZ3JhbW1pbmcgc2tpbGxzDQogIGIpIENvbWZvcnQgd2l0aCBwdWJsaWMgc3BlYWtpbmcNCiAgYykgWWVhcnMgb2YgZXhwZXJpZW5jZQ0KICBkKSBCYWNrZ3JvdW5kIChJIGhhdmUgaWdub3JlZCB0aGlzIGluIHRoZSBmb3JtdWxhdGlvbiBiZWxvdykNCg0KVmFyaWFibGVzDQoNClhpaiA9IDEsIGlmIHBlcnNvbiBpIGJlbG9uZ3MgdG8gZ3JvdXAgajsgMCBvdGhlcndpc2UNCg0KQ29uc3RyYWludHMNCg0KMS4gQSBwZXJzb24gY2FuIGJlbG9uZyB0byBubyBtb3JlIHRoYW4gb25lIGdyb3VwDQoyLiBBIGdyb3VwIHJlcXVpcmVzIHRocmVlIHBlb3BsZQ0KMy4gRm9yIGVhY2ggb2YgdGhlIGNoYXJhY3RlcmlzdGljcywgZWFjaCBncm91cCBtdXN0IG1lZXQgYSBtaW5pbXVtIHZhbHVlLiBJIGluaXRpYWxseSBkZXRlcm1pbmVkIHRoZSBtaW5pbXVtIHZhbHVlIGJ5IGxvb2tpbmcgYXQgdGhlIGRhdGEsIGFuZCBJIHRoZW4ga2VwdCBhZGp1c3RpbmcgaXQgdW50aWwgSSBzYXcgcGFyaXR5Lg0KDQpPYmplY3RpdmUNCg0KVGhpcyBpcyBtYXhpbWl6YXRpb24gcHJvYmxlbSB3aGVyZSBJIHRyeSB0byBtYXhpbWl6ZSB0aGUgcHJvZ3JhbW1pbmcgc2tpbGxzIGZvciBlYWNoIGdyb3VwLiBXZSBjYW4gYWxzbyB1c2UgdGhlIG90aGVyIGNoYXJhY3RlcmlzdGljcywgb3IgYWxsIG9mIHRoZW0uDQoNCkhlcmUgaXMgdGhlIHByb2dyYW0NCg0KYGBge3J9DQpsaWJyYXJ5KGxwU29sdmVBUEkpDQp4IDwtcmVhZC5scCgiZ2EubHAiKQ0KeA0KYGBgDQoNCk5vdywgdG8gc29sdmUgaXQuIEFzIHRoaXMgaXMgYSBwdXJlIEludGVnZXIgcHJvZ3JhbW1pbmcgcHJvYmxlbSwgdGhlIHNvbHV0aW9uIGNhbiB0YWtlIHRpbWUNCmBgYHtyfQ0Kc3lzdGVtLnRpbWUoc29sdmUoeCkpDQpnZXQub2JqZWN0aXZlKHgpDQpgYGANCg0KUmVtZW1iZXIgdGhhdCB0aGUgc29sdXRpb24gaXMgcHJlc2VudGVkIGluIHRoZSBvcmRlciBpbiB3aGljaCB2YXJpYWJsZXMgYXBwZWFyIGluIHRoZSBmb3JtdWxhdGlvbg0KYGBge3J9DQpBc3NpZ25tZW50IDwtIGdldC52YXJpYWJsZXMoeCkNCkFzc2lnbm1lbnQNCmBgYA0KDQpIb3cgZ29vZCBpcyB0aGUgc29sdXRpb24NCmBgYHtyfQ0KZ2V0LmNvbnN0cmFpbnRzKHgpDQpgYGANCg0KTGV0IHVzIG5vdyBtYXAgdGhlIHN0dWRlbnQgbmFtZXMgdG8gdGhlIHNvbHV0aW9uDQpGaXJzdCByZWFkIHRoZSBuYW1lcw0KYGBge3J9DQpzbmFtZXMgPC0gYXMubWF0cml4KHJlYWQuY3N2KCIuL3NuYW1lcy50eHQiKSkNCmBgYA0KDQpOb3csIHdlIGFyZSBnb2luZyB0byBqb2luIHRoZSBzdHVkZW50IG5hbWVzIHRvIHRoZSBBc3NpZ25tZW50IHNvbHV0aW9uLiBCdXQsIHRoZXNlIHR3byBjb2x1bW5zIGFyZSBvZiBkaWZmZXJlbnQgbGVuZ3RoLCBzbyB3ZSB3aWxsIHJlcGVhdCB0aGUgc25hbWVzIHRvIGdldCBhdCB0aGUgcmlnaHQgbnVtYmVyIG9mIHJvd3MgYXMgQXNzaWdubWVudC4gV2UgdXNlIGEgbmV3IHBhY2thZ2UgY2FsbGVkIG1lZmEuDQoNCldlIHNob3VsZCBwcm9iYWJseSBwdXQgc29tZSBjaGVjayB0byBlbnN1cmUgdGhhdCB0aGUgcm93IGxlbmd0aHMgYXJlIGNvcnJlY3QuDQpgYGB7cn0NCmxpYnJhcnkobWVmYSkNCnNuYW1lcyA8LSByZXAoc25hbWVzLGxlbmd0aChBc3NpZ25tZW50KS9sZW5ndGgoc25hbWVzKSkNCmBgYA0KDQpXZSBub3cgam9pbiB0aGUgdHdvIGNvbHVtbnMNCmBgYHtyfQ0KaWYgKGxlbmd0aChBc3NpZ25tZW50KSA9PSBsZW5ndGgoc25hbWVzKSkgew0KICBTb2x1dGlvbiA8LSBjYmluZChBc3NpZ25tZW50LHNuYW1lcykNCiAgU29sdXRpb24gPC0gc3Vic2V0KFNvbHV0aW9uLCBBc3NpZ25tZW50ID09ICIxIikgDQogIGdyb3VwID0gMQ0KICByZXBlYXQgew0KICAgIHVsIDwtIGdyb3VwICogMw0KICAgIGxsIDwtIHVsIC0yDQogICAgcHJpbnQoYygiR3JvdXAiLGdyb3VwLFNvbHV0aW9uW2MobGw6dWwpLDJdKSkNCiAgICBncm91cCA8LSBncm91cCArIDENCiAgICBpZiAoZ3JvdXAgPiA3KSB7DQogICAgICBicmVhaw0KICAgIH0NCiAgfQ0KfQ0KYGBgDQo=</div>
 
 
 
