@@ -146,7 +146,10 @@ get.objective(x)
 v1 <- get.variables(x)
 s0 <- v1[19]
 v1 <- v1[-19]
+<<<<<<< HEAD
 v1
+=======
+>>>>>>> c59631b3ff730f26b02ad95664b60a7ab74fd84a
 tt <- c(NA,NA,s0,NA)
 v <- matrix(v1,ncol=4,nrow=6)
 v <- t(v)
