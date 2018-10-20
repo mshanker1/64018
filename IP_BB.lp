@@ -1,6 +1,8 @@
 /* Objective function */
-min: -8 Tables -5 Chairs;
+max: 8 x + 5 y;
 
 /* Constraints */
-Labor: +Tables +Chairs <= 6;
-Wood: +9 Tables +5 Chairs <= 45;
+Labor: x + y <= 6;
+Wood: 9 x + 5 y <= 45;
+
+int x, y;

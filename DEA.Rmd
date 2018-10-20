@@ -1,0 +1,61 @@
+---
+title: "DEA"
+author: "MS"
+date: "October 15, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(lpSolveAPI)
+b1 <- read.lp("DEA_b1.lp")
+b1
+solve(b1)
+```
+```{r}
+get.objective(b1)
+get.variables(b1)
+```
+```{r}
+b2 <- read.lp("DEA_b2.lp")
+b2
+solve(b2)
+```
+```{r}
+get.objective(b2)
+get.variables(b2)
+```
+```{r}
+install.packages("Benchmarking")
+library(Benchmarking)
+```
+```{r}
+x <- matrix(c(100,100,100,100,100))
+y <- matrix(c(10,15,20,23,30,31,25,30,23,20),ncol = 2)
+x
+y
+colnames(y) <- c("loans","deposits")
+y
+```
+
+```{r}
+e <- dea(x,y,RTS = "vrs")
+e
+peers(e)
+lambda(e)
+dea.plot.isoquant(x,y,RTS="vrs")
+```
+
+```{r}
+library(esquisse)
+```
+
