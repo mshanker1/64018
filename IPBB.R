@@ -1,4 +1,5 @@
 library(lpSolveAPI)
+
 # Demonstrate IP Branch-and-Bound
 sp1 <- make.lp(0, 2) # number of constraints, number of decision variables
 #Defaults to Minimize objective function
@@ -9,8 +10,6 @@ RowNames <- c("Labor", "Wood")
 ColNames <- c("Tables", "Chairs")
 dimnames(sp1) <- list(RowNames, ColNames)
 sp1
-# Alternatively, write your model in lp format
-write.lp(sp1,'IP_BB.lp',type='lp') # we will use this format soon
 solve(sp1)
 get.objective(sp1) * -1
 get.variables(sp1)
@@ -24,9 +23,6 @@ add.constraint(sp2, c(1, 1), "<=", 6)
 add.constraint(sp2, c(9, 5), "<=", 45)
 add.constraint(sp2,c(1,0),">=",4)
 solve(sp2)
-get.objective(sp2) * -1
-get.variables(sp2)
-
 # SP 4 = SP 2 + x2 >= 2
 sp4 <- make.lp(0, 2) # number of constraints, number of decision variables
 set.objfn(sp4, c(-8, -5))
@@ -39,15 +35,15 @@ get.objective(sp4) * -1 # This solution is infeasible
 get.variables(sp4)
 
 # SP 5 = SP 2 + x2 <= 1
-sp5 <- make.lp(0, 2) # number of constraints, number of decision variables
-set.objfn(sp5, c(-8, -5))
-add.constraint(sp5, c(1, 1), "<=", 6)
-add.constraint(sp5, c(9, 5), "<=", 45)
-add.constraint(sp5,c(1,0),">=",4)
-add.constraint(sp5,c(0,1),"<=",1)
-solve(sp5)
-get.objective(sp5) * -1 
-get.variables(sp5)
+  sp5 <- make.lp(0, 2) # number of constraints, number of decision variables
+  set.objfn(sp5, c(-8, -5))
+  add.constraint(sp5, c(1, 1), "<=", 6)
+  add.constraint(sp5, c(9, 5), "<=", 45)
+  add.constraint(sp5,c(1,0),">=",4)
+  add.constraint(sp5,c(0,1),"<=",1)
+  solve(sp5)
+  get.objective(sp5) * -1 
+  get.variables(sp5)
 
 # SP 6 = SP 5 + x1 >= 5
 sp6 <- make.lp(0, 2) # number of constraints, number of decision variables
@@ -85,3 +81,10 @@ get.objective(sp3) * -1
 get.variables(sp3)
 # The solution to SP3 gives an objective of 39 < SP6 of 40. Further, you will not get a better IP solution
 # from SP3 branch. Hence our optimal solution is SP6.
+
+# We now solve the example using lpsolve directly
+x <- read.lp("IP_BB.lp")
+x
+solve(x)
+get.objective(x)
+get.variables(x)
