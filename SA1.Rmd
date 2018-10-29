@@ -1,0 +1,55 @@
+---
+title: "Simulated Annealing"
+author: "ms"
+date: "10/29/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(GenSA)
+library(ggplot2)
+library(GA)
+
+```
+
+
+#### Define Function and Solve
+
+```{r}
+# The following function requires two inputs
+# Limits are (-3,-3) to (3, 3)
+ fun = function(x,y) { (sin(10*x)*cos(10*y)+2)/sqrt(x^4+y^4+1) } 
+ obj = function(z) { -fun(z[1],z[2])}
+ lower <- c(-3,-3)
+upper <- c(3,3)
+par <- c(2,2)
+```
+
+#### Define Function
+
+```{r}
+# The following function requires two inputs
+# Limits are (-3,-3) to (3, 3)
+ fun = function(x,y) { (sin(10*x)*cos(10*y)+2)/sqrt(x^4+y^4+1) } 
+ obj = function(z) { fun(z[1],z[2])}
+ 
+# Plot the function
+x=seq(-3,3,length=50) # tick marks on x axis
+y=seq(-3,3,length=50) # tick marks on y axis; defines grid for... 
+z=outer(x,y,fun) # matrix for plotting -- z vals / height of surface
+ persp3D(x,y, z, phi = 0, theta = 45,
+  xlab = "X", ylab = "Y",
+  main = "Surface elevation data",
+  color.palette = bl2gr.colors,
+  ticktype = "detailed"
+)
+filled.contour(x, y, z, color.palette = bl2gr.colors)
+
+```
+

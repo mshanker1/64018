@@ -27,9 +27,8 @@ dea.plot( rowSums(x),rowSums(y),RTS="crs",wx=0.01,wy=0.01)
 tt <- as.data.frame(matrix(c(x,y),ncol=4))
 tt
 library(ggplot2)
-ggplot(data=tt,aes(V2,V3)) +
-  geom_line(aes(color="red")) +
-  geom_line(aes(V2,V4),color="yellow",show.legend = T)
+ggplot(data=tt,aes(V1,V2,V3)) +
+  geom_tile(aes(z=V3))
 
 ```
 

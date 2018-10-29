@@ -1,0 +1,108 @@
+---
+title: "GA"
+author: "ms"
+date: "10/22/2018"
+output: html_document
+---
+
+## Metaheuristics
+
+### Genetic  Algorithms
+
+References:
+
+* https://cran.r-project.org/web/packages/GA/vignettes/GA.html
+* https://cran.r-project.org/web/packages/genalg/index.html
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### Load Libraries 
+
+```{r}
+library(ggplot2)
+library(GA)
+```
+
+#### Define Function
+
+```{r}
+# The following function requires two inputs
+# Limits are (-3,-3) to (3, 3)
+ fun = function(x,y) { (sin(10*x)*cos(10*y)+2)/sqrt(x^4+y^4+1) } 
+ obj = function(z) { fun(z[1],z[2])}
+ 
+# Plot the function
+x=seq(-3,3,length=50) # tick marks on x axis
+y=seq(-3,3,length=50) # tick marks on y axis; defines grid for... 
+z=outer(x,y,fun) # matrix for plotting -- z vals / height of surface
+ persp3D(x,y, z, phi = 0, theta = 45,
+  xlab = "X", ylab = "Y",
+  main = "Surface elevation data",
+  color.palette = bl2gr.colors,
+  ticktype = "detailed"
+)
+filled.contour(x, y, z, color.palette = bl2gr.colors)
+
+```
+
+#### Solve using GA
+
+https://cran.r-project.org/web/packages/GA/vignettes/GA.html
+```{r}
+library(GA)
+lower = c(-3,-3)
+upper = c(3,3)
+# Visualize the solution
+monitor <- function(obj) 
+{ 
+  contour(x, y, z, drawlabels = FALSE, col = grey(0.5))
+  title(paste("iteration =", obj@iter), font.main = 1)
+  points(obj@population, pch = 20, col = 2)
+  Sys.sleep(0.2)
+}
+
+GA1 <- ga(type = "real-valued",fitness=obj,lower=lower,upper=upper, popSize = 50)
+summary(GA1)
+plot(GA1)
+
+
+filled.contour(x, y, z, color.palette = bl2gr.colors, 
+      plot.axes = { axis(1);
+                    axis(2); points(GA1@solution[,1],GA1@solution[,2],
+                                    cex=2,col="red",lwd=2)}
+)
+
+```
+
+#### Define another function
+
+```{r}
+ 
+# Define another function
+ nfun = function(x) {
+   (12*x^5-975*x^4+28000*x^3-345000*x^2+1800000*x)
+ }
+ll = c(0)
+ul = c(31)
+
+# Plot the function
+# Note, plotting as a maximization function
+p <- ggplot(data=data.frame(x=0),aes(x=x))
+p + stat_function(fun=nfun) + xlim(0,31)
+```
+
+
+```{r}
+ nfun1 = function(x) {
+   (12*x^5-975*x^4+28000*x^3-345000*x^2+1800000*x)
+ }
+GA2 <- ga(type = "real-valued",fitnes=nfun1, lower=0,upper=31)
+summary(GA2)
+plot(GA2)
+curve(nfun1, from = 0, to = 31, n = 1000)
+points(GA2@solution, GA2@fitnessValue, col = 2, pch = 19)
+```
+
+
