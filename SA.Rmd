@@ -95,11 +95,12 @@ Mean-risk models were developed in the 1950s for portfolio selection problems. V
 
 ```{r}
 library("quantmod")
-tickers <- c("GE", "IBM", "JPM", "MSFT", "WMT")
-getSymbols(tickers, from = "2000-12-01", to = "2010-12-31")
+tickers <- c("GE", "IBM", "GOOG", "AMZN", "AAPL")
+getSymbols(tickers, from = "2004-12-01", to = "2018-10-27")
 P <- NULL
 for(ticker in tickers) {
  tmp <- Cl(to.monthly(eval(parse(text = ticker))))
+ #print(tmp)
  P <- cbind(P, tmp)
 }
 colnames(P) <- tickers
@@ -121,7 +122,7 @@ obj <- function(w) {
 }
 ```
 ```{r}
-set.seed(1234)
+set.seed(43298)
 fn.call <<- 0
 out.GenSA <- GenSA(fn = obj, lower = rep(0, 5), upper = rep(1, 5), control = list(smooth = FALSE, max.call = 3000))
 fn.call.GenSA <- fn.call
