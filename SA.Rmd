@@ -99,11 +99,17 @@ Definition of VAR/CVAR: http://www.pacca.info/public/files/docs/public/finance/A
 
 ```{r}
 library("quantmod")
+<<<<<<< HEAD
+tickers <- c("GE", "IBM", "GOOG", "AMZN", "AAPL")
+getSymbols(tickers, from = "2004-12-01", to = "2018-10-27")
+=======
 tickers <- c("GE", "IBM", "JPM", "GOOG", "MSF")
 getSymbols(tickers, from = "2008-12-01", to = "2018-11-01")
+>>>>>>> dd6f8c5be16451d05bb850661d3d61563143ea1b
 P <- NULL
 for(ticker in tickers) {
  tmp <- Cl(to.monthly(eval(parse(text = ticker))))
+ #print(tmp)
  P <- cbind(P, tmp)
 }
 colnames(P) <- tickers
@@ -135,7 +141,7 @@ objmin <- function(w) {
 }
 ```
 ```{r}
-set.seed(1234)
+set.seed(43298)
 fn.call <<- 0
 out.GenSA <- GenSA(fn = obj, lower = rep(0, 5), upper = rep(1, 5), control = list(smooth = FALSE, max.call = 3000))
 fn.call.GenSA <- fn.call
